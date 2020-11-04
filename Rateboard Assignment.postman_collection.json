@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "2b839c03-25ae-430f-af3e-8f4be9dd383b",
+		"name": "Rateboard Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Element",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Eins"
+				},
+				"url": {
+					"raw": "localhost:8080/import",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"import"
+					]
+				},
+				"description": "Te"
+			},
+			"response": []
+		},
+		{
+			"name": "Display Queue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/queue",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"queue"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
