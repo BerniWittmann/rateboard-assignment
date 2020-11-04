@@ -8,18 +8,25 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Queue Implementation that persists and rehydrates the queue from a file
+ */
 public class FileBasedQueue extends PersistedQueue {
     private static final String FILE_PATH = "/tmp/queue.txt";
-    Logger logger = LoggerFactory.getLogger(FileBasedQueue.class);
+    private Logger logger = LoggerFactory.getLogger(FileBasedQueue.class);
 
     public FileBasedQueue() {
         initFile();
         load();
     }
 
+    /**
+     * Persist the queue data to the given file
+     */
     private void store() {
         Iterable<String> lines = this.parallelStream().map(QueueElement::toRepresentation).collect(Collectors.toList());
         try {
@@ -29,6 +36,9 @@ public class FileBasedQueue extends PersistedQueue {
         }
     }
 
+    /**
+     * Initialise the queue file and create it if it does not exist
+     */
     private void initFile() {
         try {
             // Create the file if it does not exist
@@ -37,15 +47,19 @@ public class FileBasedQueue extends PersistedQueue {
             logger.error("File Based Queue errored", e);
         }
     }
+
+    /**
+     * Load and rehydrate the queue from the file
+     */
     private void load() {
         super.clear();
-        Stream<String> lines = null;
+        Stream<String> lines;
         try {
-            lines = Files.lines(Paths.get(FILE_PATH));
+            lines = Objects.requireNonNull(Files.lines(Paths.get(FILE_PATH)));
+            super.addAll(lines.map(QueueElement::fromRepresentation).filter(Objects::nonNull).collect(Collectors.toList()));
         } catch (IOException e) {
             logger.error("File Based Queue errored", e);
         }
-        super.addAll(lines.map(QueueElement::fromRepresentation).collect(Collectors.toList()));
     }
 
     @Override

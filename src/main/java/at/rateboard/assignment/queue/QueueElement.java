@@ -30,7 +30,11 @@ public class QueueElement {
     }
 
     public static QueueElement fromRepresentation(String str) {
-        String parts[] = str.split(":", 2);
-        return new QueueElement(parts[1], Long.parseLong(parts[0]));
+        String[] parts = str.split(":", 2);
+        try {
+            return new QueueElement(parts[1], Long.parseLong(parts[0]));
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -14,6 +14,11 @@ public class QueueController {
         this.queueService = queueService;
     }
 
+    /**
+     * Displays the elements that are currently in the queue
+     *
+     * @return List of data in the queue
+     */
     @GetMapping("/queue")
     public String displayQueue() {
         return queueService.parallelStream().map(QueueElement::getData).collect(Collectors.joining(", "));

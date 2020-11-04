@@ -17,6 +17,11 @@ public class ImportController {
         this.queueService = queueService;
     }
 
+    /**
+     * Use the given data and put them in the queue for the consumer to pick up
+     * @param data String of import data
+     * @return Success Message
+     */
     @PostMapping("/import")
     public String importData(@RequestBody String data) {
         queueService.add(new QueueElement(data));
