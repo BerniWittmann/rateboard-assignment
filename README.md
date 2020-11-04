@@ -40,6 +40,8 @@ The ImportController provides the `/import` Endpoint, which stores the Request b
 
 The Consumer runs a scheduled tasks at an example interval of 5 seconds, which pulls the first item from the queue and then just logs the item to the console. In a production environment this task could do the actual importing and trigger the success notification.
 
+I added two simple test suites for the Consumer and the Importer. 
+
 ### Potential Problems
 
 A potential problem is the difficulty of error handling. The File based queue poses quite a risk for errors due to I/O, concurrency when running this approach on distributed systems.
@@ -57,6 +59,7 @@ Instead of maintaining the queue manually, I would advise to use Redis to handle
 
 Also, I am not confident with using a file based queue like this one in production since it is quite error-prone and would definitely benefit from a more thorough error checking
 
+The Tests for the consumer could be improved and also the queue service and implementations should be tested quite extensively. However, this testing was not in scope of the assignment.
 ## Contact
 
 Bernhard Wittmann

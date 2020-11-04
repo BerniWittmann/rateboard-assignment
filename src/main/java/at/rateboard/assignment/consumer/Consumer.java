@@ -20,7 +20,7 @@ public class Consumer {
     }
 
     /**
-     * consume items from queue at scheduled interval and log them
+     * consume items from queue at scheduled interval and process them
      */
     @Scheduled(fixedRate = 5000)
     public void consumeQueue() {
@@ -28,7 +28,15 @@ public class Consumer {
         if (item == null) {
             return;
         }
+        process(item.getData());
+    }
+
+
+    /**
+     * Process the queue data
+     */
+    public void process(String data) {
         // Instead of logging this method could trigger the import and success notification
-        log.info("Consumed Item: {}", item.getData());
+        log.info("Consumed Item: {}", data);
     }
 }
